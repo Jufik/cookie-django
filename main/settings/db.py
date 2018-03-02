@@ -1,11 +1,11 @@
 import os
+import getpass
 
 DEBUG = os.getenv('PROD') is None
+USER = getpass.getuser()
 
-if DEBUG:
-    import getpass
-    USER = getpass.getuser()
-    DATABASES = {
+_DATABASES = {
+    'local': {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': os.environ.get('db_name'),
@@ -13,9 +13,8 @@ if DEBUG:
             'HOST': 'localhost',
             'PORT': '5432',
         }
-    }
-else:
-    DATABASES = {
+    },
+    'remote': {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': os.environ.get('db_name'),
@@ -25,3 +24,10 @@ else:
             'PORT': '5432',
         }
     }
+}
+
+
+if DEBUG:
+    DATABASES = _DATABASES['local']
+else:
+    DATABASES = _DATABASES['remote']
