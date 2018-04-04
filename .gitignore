@@ -6,3 +6,5 @@ dump.sql
 db.sqlite
 node_modules
 .env.json
+.env.*.json
+!.env.sample.json

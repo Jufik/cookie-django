@@ -3,9 +3,13 @@ import os
 
 
 def get_credentials():
-    print('LOADING CREDS')
+    domain = os.environ.get('DOMAIN', '')
+    file_ = ".env.json"
+    if domain:
+        file_ = f".env.{domain}.json"
+    print(f'LOADING CREDS FROM FILE {file_}')
     env_file_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    with open(os.path.join(env_file_dir, '.env.json'), 'r') as f:
+    with open(os.path.join(env_file_dir, f'.env.{domain}.json'), 'r') as f:
         creds = json.loads(f.read())
     return creds
 
