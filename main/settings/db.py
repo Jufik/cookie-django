@@ -1,33 +1,12 @@
-import os
-import getpass
+from main.jsonenv import env
 
-DEBUG = os.getenv('PROD') is None
-USER = getpass.getuser()
-
-_DATABASES = {
-    'local': {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ.get('db_name'),
-            'USER': USER,
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
-    },
-    'remote': {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ.get('db_name'),
-            'USER': os.environ.get('db_user'),
-            'PASSWORD': os.environ.get('db_password'),
-            'HOST': os.environ.get('db_host'),
-            'PORT': '5432',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env.get('db_name', ''),
+        'USER': env.get('db_user', ''),
+        'HOST': env.get('db_host', ''),
+        'PASSWORD': env.get('db_password', ''),
+        'PORT': '5432',
     }
 }
-
-
-if DEBUG:
-    DATABASES = _DATABASES['local']
-else:
-    DATABASES = _DATABASES['remote']

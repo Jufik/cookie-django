@@ -12,8 +12,9 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
-from main.settings.env import *
+from main.jsonenv import env
 from main.settings.db import *
+from main.settings.raven import *
 from main.settings.user import *
 from main.settings.rest import *
 from main.settings.imagekit import *
@@ -81,7 +82,8 @@ if DEBUG:
         'debug_toolbar.middleware.DebugToolbarMiddleware',
         'utils.middleware.NonHtmlDebugToolbarMiddleware'
     ]
-
+else:
+    INSTALLED_APPS += ['raven.contrib.django.raven_compat']
 
 ROOT_URLCONF = 'main.urls'
 

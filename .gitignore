@@ -5,4 +5,4 @@ venv
 dump.sql
 db.sqlite
 node_modules
-.env
+.env.json
