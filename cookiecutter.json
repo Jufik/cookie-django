@@ -1,0 +1,6 @@
+{
+    "project_slug": "my_project",
+    "host_ip": "127.0.0.1",
+    "domain_name": "project.vingtcinq.io",
+    "uwsgi_port": 8012
+}

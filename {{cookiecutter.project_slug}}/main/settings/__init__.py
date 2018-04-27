@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # VingtCinq's apps
     'emailauth',
+    'mediamanager',
     'utils',
     # external apps
     'rest_framework',
