@@ -2,9 +2,15 @@ __pycache__
 *.pyc
 .DS_Store
 venv
+.vscode
+.sonarlint
+uwsgi.pid
 dump.sql
 db.sqlite
 node_modules
+/dumps/
+/static/
 .env.json
 .env.*.json
 !.env.sample.json
+!.env.test.json

@@ -12,4 +12,14 @@ if __name__ == "__main__":
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+    # Specific to speed up tests
+    from django.conf import settings
+    if 'test' in sys.argv:
+        import logging
+        logging.disable(logging.CRITICAL)
+        settings.TEMPLATE_DEBUG = False
+        settings.PASSWORD_HASHERS = [
+            'django.contrib.auth.hashers.MD5PasswordHasher',
+        ]
+    # end of specific
     execute_from_command_line(sys.argv)
