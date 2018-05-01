@@ -18,7 +18,7 @@ def dump_db():
             env.get('db_host', ''),
             env.get('db_user', ''),
             datetime.datetime.now().replace(microsecond=0).isoformat()
-        )
+        ))
 
 def create_local_db():
     local("createdb '%s'" % env.get('db_name', ''))

@@ -1,7 +1,7 @@
 {
     "project_slug": "my_project",
     "host_ip": "127.0.0.1",
-    "domain_name": "{{cookiecutter.project_slug}}.vingtcinq.me",
-    "dev_domain_name": "{{cookiecutter.project_slug}}.com",
+    "dev_domain_name": "{{cookiecutter.project_slug}}.vingtcinq.me",
+    "domain_name": "{{cookiecutter.project_slug}}.com",
     "uwsgi_port": 8000
 }
