@@ -4,27 +4,27 @@ from fabric.api import *
 from fabric.contrib.console import confirm
 from fabric.utils import abort
 from fabric.operations import prompt
-from main.jsonenv import env
+from main.jsonenv import env as creds_env
 
 
 env.user = 'ec2-user'
 env.hosts = ['{{cookiecutter.host_ip}}']
 
 def dump_db():
-    if confirm("This will dump database %s (%s), Continue ?" % (env.get('db_name', ''), env.get('db_host', '')), default=False):
+    if confirm("This will dump database %s (%s), Continue ?" % (creds_env.get('db_name', ''), creds_env.get('db_host', '')), default=False):
         local('PGPASSWORD=%s pg_dump --dbname=%s --host=%s --username=%s > dumps/db-remote-%s.sql' % (
-            env.get('db_password', ''),
-            env.get('db_name', ''),
-            env.get('db_host', ''),
-            env.get('db_user', ''),
+            creds_env.get('db_password', ''),
+            creds_env.get('db_name', ''),
+            creds_env.get('db_host', ''),
+            creds_env.get('db_user', ''),
             datetime.datetime.now().replace(microsecond=0).isoformat()
         ))
 
 def create_local_db():
-    local("createdb '%s'" % env.get('db_name', ''))
+    local("createdb '%s'" % creds_env.get('db_name', ''))
 
 def drop_local_db():
-    local("dropdb --if-exists '%s'" % env.get('db_name', ''))
+    local("dropdb --if-exists '%s'" % creds_env.get('db_name', ''))
 
 def import_dump():
     print('Select the dump you would like to import :')
@@ -40,12 +40,12 @@ def import_dump():
     except IndexError:
         abort('%s is not a valid choice')
     if confirm("This will replace local database %s with dump %s, Continue ?" % (
-            env.get('db_name', ''),
+            creds_env.get('db_name', ''),
             selected_dump),
             default=False):
         drop_local_db()
         create_local_db()
-        local("psql --dbname=%s < %s" % (env.get('db_name', ''), selected_dump))
+        local("psql --dbname=%s < %s" % (creds_env.get('db_name', ''), selected_dump))
 
 def deploy():
     with cd('/home/ec2-user/{{cookiecutter.project_slug}}'):
