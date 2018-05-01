@@ -22,6 +22,7 @@ def dump_db():
 
 def create_local_db():
     local("createdb '%s'" % creds_env.get('db_name', ''))
+    print('Local database %s successfully created' % creds_env.get('db_name', '') )
 
 def drop_local_db():
     local("dropdb --if-exists '%s'" % creds_env.get('db_name', ''))
