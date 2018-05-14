@@ -80,6 +80,7 @@ if DEBUG:
         'debug_toolbar.middleware.DebugToolbarMiddleware',
         'utils.middleware.NonHtmlDebugToolbarMiddleware'
     ]
+    INTERNAL_IPS = ['127.0.0.1']
 else:
     INSTALLED_APPS += ['raven.contrib.django.raven_compat']
 
