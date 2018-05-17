@@ -4,10 +4,10 @@ from django.db import models
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, ResizeToFit
 
-from utils.models import TimeStampModel
+from model_utils.models import TimeStampedModel
 
 
-class Media(TimeStampModel):
+class Media(TimeStampedModel):
 
     # not used since content_type can be extracted from file
     # 

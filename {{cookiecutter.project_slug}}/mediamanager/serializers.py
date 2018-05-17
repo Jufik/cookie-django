@@ -38,7 +38,7 @@ class MediaSerializer(serializers.ModelSerializer):
             'author',
             'thumbnail_url',
             'rectangle_url',
-            'created_at'
+            'created'
         ]
 
 
@@ -54,5 +54,5 @@ class MediaLightSerializer(serializers.ModelSerializer):
             'image',
             'thumbnail_url',
             'rectangle_url',
-            'created_at'
+            'created'
         ]
