@@ -8,6 +8,7 @@ AWS_SECRET_ACCESS_KEY = env.get('aws_s3_secret_key')
 AWS_STORAGE_BUCKET_NAME = env.get('aws_s3_bucket')
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False
 
 # http://django-storages.readthedocs.org/en/latest/backends/amazon-S3.html#settings
 expiry_time = datetime.datetime.utcnow() + datetime.timedelta(days=360)  # 1year
