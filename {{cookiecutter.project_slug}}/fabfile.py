@@ -51,7 +51,7 @@ def import_dump():
 def deploy():
     with cd('/home/ec2-user/{{cookiecutter.project_slug}}'):
         run("git pull")
-        run("source venv/bin/activate && pip install -r requirements.txt")
+        run("source venv/bin/activate && PYTHON_INSTALL_LAYOUT="" pip install -r requirements.txt")
         run("source venv/bin/activate && ./manage.py collectstatic --noinput --ignore *.scss")
         run("venv/bin/uwsgi --reload {{cookiecutter.project_slug}}.pid")
 
@@ -92,9 +92,9 @@ def start():
         run("git clone https://gitlab.com/e-reflex/{{cookiecutter.project_slug}}.git")
     with cd('/home/ec2-user/{{cookiecutter.project_slug}}'):
         run("virtualenv venv -p python3")
-        run("source venv/bin/activate && pip install -U pip")
-        run("source venv/bin/activate && pip install uwsgi")
-        run("source venv/bin/activate && pip install -r requirements.txt")
+        run("source venv/bin/activate && PYTHON_INSTALL_LAYOUT="" pip install -U pip")
+        run("source venv/bin/activate && PYTHON_INSTALL_LAYOUT="" pip install uwsgi")
+        run("source venv/bin/activate && PYTHON_INSTALL_LAYOUT="" pip install -r requirements.txt")
         run("source venv/bin/activate && ./manage.py collectstatic --noinput --ignore *.scss")
         run("venv/bin/uwsgi {{cookiecutter.project_slug}}.ini")
         run("sudo cp {{cookiecutter.project_slug}}.conf /etc/nginx/conf.d/")
