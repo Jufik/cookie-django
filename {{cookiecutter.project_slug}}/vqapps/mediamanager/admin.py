@@ -16,7 +16,7 @@ class MediaAdmin(admin.ModelAdmin):
     # ]
     # raw_id_fields = ('')
     # readonly_fields = ('')
-    actions = []
+    actions = None
     search_fields = ('filename', 'description')
     # date_hierarchy = ''
     # ordering = ('')
