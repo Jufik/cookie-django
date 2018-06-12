@@ -5,13 +5,14 @@ from mediamanager.models import Media
 class MediaAdmin(admin.ModelAdmin):
     '''Admin View for Media'''
 
-    list_display = ['filename', 'content_type', 'author']
-    list_filter = ['content_type']
-    # inlines = [
+    list_display = ('filename',)
+    list_filter = ('content_type', 'media_type', 'folder',)
+    # inlines = (
     #     Inline,
     # ]
-    # raw_id_fields = ['']
-    # readonly_fields = ['']
-    search_fields = ['filename']
+    # raw_id_fields = ('')
+    # readonly_fields = ('')
+    actions = None
+    search_fields = ('filename', 'description')
     # date_hierarchy = ''
-    # ordering = ['']
+    # ordering = ('')
