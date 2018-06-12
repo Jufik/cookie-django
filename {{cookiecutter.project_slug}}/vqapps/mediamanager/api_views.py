@@ -6,9 +6,9 @@ from rest_framework import (
 )
 from django_filters.rest_framework import DjangoFilterBackend
 
-from mediamanager.permissions import IsAuthorOrReadOnly
-from mediamanager.serializers import MediaSerializer
-from mediamanager.models import Media
+from vqapps.mediamanager.permissions import IsAuthorOrReadOnly
+from vqapps.mediamanager.serializers import MediaSerializer
+from vqapps.mediamanager.models import Media
 
 
 class MediaViewSet(mixins.ListModelMixin,

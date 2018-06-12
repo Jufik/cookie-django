@@ -1,5 +1,5 @@
 from django.contrib import admin
-from mediamanager.models import Media
+from vqapps.mediamanager.models import Media
 
 @admin.register(Media)
 class MediaAdmin(admin.ModelAdmin):

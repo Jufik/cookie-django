@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
 
-from mediamanager.models import Media
+from vqapps.mediamanager.models import Media
 
 
 class UserLightSerializer(serializers.ModelSerializer):
@@ -23,7 +23,9 @@ class MediaSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         if not data.get('image') and not data.get('attachment'):
-            raise serializers.ValidationError("Vous devez saisir au minimum une image ou un fichier")
+            raise serializers.ValidationError("Vous devez saisir une image ou un fichier")
+        if data.get('image') and data.get('attachment'):
+            raise serializers.ValidationError("Vous devez saisir une image ou un fichier, et not les deux")
         return data
 
 

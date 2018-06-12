@@ -50,9 +50,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # VingtCinq's apps
     'emailauth',
-    'mediamanager',
-    'utils',
+    'vqapps.mediamanager',
+    'vqapps.utils',
+    'vqapps.faq'
     # external apps
+    'ordered_model',
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
@@ -78,7 +80,7 @@ if DEBUG:
     INSTALLED_APPS += ['debug_toolbar']
     MIDDLEWARE += [
         'debug_toolbar.middleware.DebugToolbarMiddleware',
-        'utils.middleware.NonHtmlDebugToolbarMiddleware'
+        'vqapps.utils.middleware.NonHtmlDebugToolbarMiddleware'
     ]
     INTERNAL_IPS = ['127.0.0.1']
 else:
