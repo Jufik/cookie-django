@@ -1,5 +1,5 @@
 from django.template import Library
-from vqapps.mediamanager.models import Media
+from mediamanager.models import Media
 
 from django.contrib.admin.templatetags.admin_list import result_headers, result_hidden_fields, results
 register = Library()
@@ -21,3 +21,10 @@ def mediamanager_result_list(cl):
             'num_sorted_fields': num_sorted_fields,
             'results': list(results(cl)),
             'opts': Media._meta}
+
+
+@register.inclusion_tag("admin/mediamanager/folder_select.html")
+def folder_select():
+    return {
+        'folders': list(Media.FOLDER_CHOICES)
+    }

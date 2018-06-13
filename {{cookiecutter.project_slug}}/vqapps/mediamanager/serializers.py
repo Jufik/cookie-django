@@ -25,7 +25,7 @@ class MediaSerializer(serializers.ModelSerializer):
         if not data.get('image') and not data.get('attachment'):
             raise serializers.ValidationError("Vous devez saisir une image ou un fichier")
         if data.get('image') and data.get('attachment'):
-            raise serializers.ValidationError("Vous devez saisir une image ou un fichier, et not les deux")
+            raise serializers.ValidationError("Vous devez saisir une image ou un fichier")
         return data
 
 

@@ -11,7 +11,7 @@ from imagekit.processors import ResizeToFill, ResizeToFit
 from model_utils.models import TimeStampedModel
 
 
-def normalize_filename(filename):
+def normalize_filename(TimeStampedModel):
     # we had a suffix to ensure file unicity
     suffix = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
     arr = filename.split('.')
@@ -29,7 +29,7 @@ def media_files_upload_to(instance, filename):
     return os.path.join('files', instance.folder, filename)
 
 
-class Media(TimeStampedModel):
+class Media(TimeStampModel):
     PRODUCT_FOLDER = 'products'
     FOLDER_CHOICES = (
         (PRODUCT_FOLDER, PRODUCT_FOLDER,),
@@ -40,7 +40,7 @@ class Media(TimeStampedModel):
         (MEDIA_IMAGE, 'Image',),
         (MEDIA_ATTACHMENT, 'Attachment',)
     )
-    folder = models.CharField('Folder', max_length=50, choices=FOLDER_CHOICES)
+    folder = models.CharField('Folder', max_length=50, choices=FOLDER_CHOICES, default=PRODUCT_FOLDER)
     filename = models.CharField('Name', max_length=255, editable=False)
     description = models.CharField('description (for SEO)', max_length=255, blank=True)
     media_type = models.PositiveSmallIntegerField(choices=MEDIA_TYPE_CHOICES, editable=False)
@@ -61,20 +61,6 @@ class Media(TimeStampedModel):
                                format='JPEG',
                                options={'quality': 72})
 
-    def clean(self, *args, **kwargs):
-        super(Media, self).clean(*args, **kwargs)
-        from django.core.exceptions import ValidationError
-        if not bool(self.attachment) and not bool(self.image):
-            raise ValidationError({
-                'image': 'you must set an attachment or an image',
-                'attachment': 'you must set an attachment or an image'
-            })
-        if bool(self.attachment) and bool(self.image):
-            raise ValidationError({
-                'image': 'you must set an attachment or an image, not both',
-                'attachment': 'you must set an attachment or an image, not both'
-            })
-
     @property
     def thumbnail_url(self):
         if self.image:
@@ -90,6 +76,14 @@ class Media(TimeStampedModel):
     @property
     def ext(self):
         return self.filename.split('.')[-1]
+    
+    @property
+    def url(self):
+        if self.is_attachment:
+            return self.attachment.url
+        if self.is_image:
+            return self.image.url
+        return None
 
     def get_media_type(self):
         if self.attachment:

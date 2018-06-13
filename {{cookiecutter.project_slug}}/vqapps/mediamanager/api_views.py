@@ -20,7 +20,7 @@ class MediaViewSet(mixins.ListModelMixin,
 
     permission_classes = [permissions.IsAuthenticated, IsAuthorOrReadOnly]
     queryset = Media.objects.select_related('author').all()
-    ordering = ['-created_at']
+    ordering = ['-created']
     serializer_class = MediaSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filter_fields = ['product']

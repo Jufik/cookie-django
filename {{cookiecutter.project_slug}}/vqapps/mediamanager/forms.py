@@ -7,21 +7,20 @@ from vqapps.mediamanager.models import Media
 
 class MediaForm(forms.ModelForm):
 
-    file_ = forms.FileField()
+    file_ = forms.FileField(required=True)
 
-    def clean(self):
+    def clean_file_(self):
         # http://django.readthedocs.io/en/latest/topics/forms/modelforms.html#s-overriding-clean-on-a-modelformset
-        cleaned_data = super(MediaForm, self).clean()
-        file_ = cleaned_data['file_']
+        file_ = self.cleaned_data.get('file_')
         if imghdr.what(file_):
-            cleaned_data['image'] = file_
+            self.cleaned_data['image'] = file_
             # update the instance value.
             self.instance.image = file_
         else:
-            cleaned_data['attachment'] = file_
+            self.cleaned_data['attachment'] = file_
             # update the instance value.
             self.instance.attachment = file_
-        return cleaned_data
+        return file_
 
     class Meta:
         model = Media
