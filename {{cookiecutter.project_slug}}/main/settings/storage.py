@@ -3,6 +3,7 @@ from main.jsonenv import env
 import datetime
 
 DEFAULT_FILE_STORAGE = 'utils.storage.CustomS3Boto3Storage'
+# to use ec2 instance role we need to set None to AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
 AWS_ACCESS_KEY_ID = env.get('aws_s3_access_key')
 AWS_SECRET_ACCESS_KEY = env.get('aws_s3_secret_key')
 AWS_STORAGE_BUCKET_NAME = env.get('aws_s3_bucket')
