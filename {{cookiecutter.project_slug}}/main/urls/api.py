@@ -28,6 +28,6 @@ rest_auth_urlpatters = [
 urlpatterns = [
     path('v1/', include([
         path('auth/', include(rest_auth_urlpatters)),
-
+        path('', include(router.urls)),
     ]))
 ]
