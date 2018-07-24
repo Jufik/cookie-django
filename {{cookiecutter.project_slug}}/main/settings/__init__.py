@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'emailauth',
     'vqapps.mediamanager',
     'vqapps.utils',
-    'vqapps.faq'
+    'vqapps.faq',
     # external apps
     'ordered_model',
     'rest_framework',

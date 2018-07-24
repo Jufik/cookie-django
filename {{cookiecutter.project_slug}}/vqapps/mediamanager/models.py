@@ -29,7 +29,7 @@ def media_files_upload_to(instance, filename):
     return os.path.join('files', instance.folder, filename)
 
 
-class Media(TimeStampModel):
+class Media(TimeStampedModel):
     PRODUCT_FOLDER = 'products'
     FOLDER_CHOICES = (
         (PRODUCT_FOLDER, PRODUCT_FOLDER,),
