@@ -13,7 +13,7 @@ class FAQAdmin(admin.ModelAdmin):
     #     Inline,
     # ]
     # raw_id_fields = ('',)
-    readonly_fields = ('created', 'updated',)
+    readonly_fields = ('created', 'modified',)
     search_fields = ('question', 'answer',)
     # date_hierarchy = ''
     # ordering = ('',)
