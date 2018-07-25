@@ -1,5 +1,5 @@
 from django.template import Library
-from mediamanager.models import Media
+from vqapps.mediamanager.models import Media
 
 from django.contrib.admin.templatetags.admin_list import result_headers, result_hidden_fields, results
 register = Library()
