@@ -14,7 +14,8 @@ AWS_S3_FILE_OVERWRITE = False
 # http://django-storages.readthedocs.org/en/latest/backends/amazon-S3.html#settings
 expiry_time = datetime.datetime.utcnow() + datetime.timedelta(days=360)  # 1year
 expires_header = expiry_time.strftime("%a, %d %b %Y %H:%M:%S GMT")
-AWS_HEADERS = {
+
+AWS_S3_OBJECT_PARAMETERS = {
     'Expires': expires_header,
     'Cache-Control': 'max-age=31556926',  # 1year
 }

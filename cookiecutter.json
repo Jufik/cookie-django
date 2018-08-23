@@ -5,6 +5,7 @@
     "domain_name": "{{cookiecutter.project_slug}}.com",
     "uwsgi_port": 8000,
     "_copy_without_render": [
-        "*.html"
+        "*.html",
+        "*.js"
     ]
 }
