@@ -17,5 +17,5 @@ expires_header = expiry_time.strftime("%a, %d %b %Y %H:%M:%S GMT")
 
 AWS_S3_OBJECT_PARAMETERS = {
     'Expires': expires_header,
-    'Cache-Control': 'max-age=31556926',  # 1year
+    'CacheControl': 'max-age=31556926',  # 1year
 }
