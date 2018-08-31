@@ -1,0 +1,59 @@
+image: python:3.6
+
+before_script:
+  ##
+  ## Install ssh-agent if not already installed, it is required by Docker.
+  ## (change apt-get to yum if you use an RPM-based image)
+  ##
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+
+  ##
+  ## Run ssh-agent (inside the build environment)
+  ##
+  - eval $(ssh-agent -s)
+
+  ##
+  ## Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+  ## We're using tr to fix line endings which makes ed25519 keys work
+  ## without extra base64 encoding.
+  ## https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_48526556
+  ##
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+
+  ##
+  ## Create the SSH directory and give it the right permissions
+  ##
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan {{cookiecutter.host_ip}} >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  ##
+  ## Optionally, if you will be using any Git commands, set the user name and
+  ## and email.
+  ##
+  #- git config --global user.email "user@example.com"
+  #- git config --global user.name "User name"
+  - apt-get -y update
+  - apt-get -y install python3-pip
+  - apt-get -y install python3-dev python3-setuptools
+  - apt-get install build-essential chrpath libssl-dev libxft-dev -y
+  - apt-get install libfreetype6 libfreetype6-dev -y
+  - apt-get install libfontconfig1 libfontconfig1-dev -y
+  - pip install -U pip
+  - pip install -r requirements.txt
+
+app-test:
+  stage: test
+  script:
+    - CONF=test coverage run manage.py test
+    - coverage report -m
+  coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
+
+app-deploy:
+  stage: deploy
+  script:
+    - ssh ec2-user@{{cookiecutter.host_ip}} "cd /home/ec2-user/{{cookiecutter.project_slug}} && git pull && source venv/bin/activate && PYTHON_INSTALL_LAYOUT="" pip install -r requirements.txt && ./manage.py collectstatic --noinput --ignore *.scss && ./manage.py migrate && venv/bin/uwsgi --reload {{cookiecutter.project_slug}}.pid"
+  dependencies:
+    - app-test
+  only:
+    - tags
