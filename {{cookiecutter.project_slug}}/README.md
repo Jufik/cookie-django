@@ -7,6 +7,15 @@
 * dev domain : {{cookiecutter.dev_domain_name}}
 * prod domain : {{cookiecutter.domain_name}}
 
+## Branch convention
+
+Here are conventions for branching :
+
+* `master` is the branch used in production
+* `dev` is the branch used for development (before the site is live)
+* `feature-[something]` is the branch use to develop the feature [name]
+* there is no `staging` branch, use the dev branch instead
+
 ## Running tests :
 
 The `.env.test.json` must be created.
