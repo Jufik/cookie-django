@@ -19,7 +19,6 @@ if __name__ == "__main__":
         logging.disable(logging.CRITICAL)
         settings.DEBUG = False
         settings.TEMPLATE_DEBUG = False
-        settings.EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
         settings.PASSWORD_HASHERS = [
             'django.contrib.auth.hashers.MD5PasswordHasher',
         ]
