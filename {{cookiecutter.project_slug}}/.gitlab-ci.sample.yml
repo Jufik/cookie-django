@@ -57,3 +57,4 @@ app-deploy:
     - app-test
   only:
     - tags
+    - web
