@@ -7,6 +7,12 @@ variables:
   POSTGRES_DB: {{cookiecutter.project_slug}}
   POSTGRES_USER: {{cookiecutter.project_slug}}
   POSTGRES_PASSWORD: ""
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache"
+
+cache:
+  paths:
+    - .cache/
+    - venv/
 
 before_script:
   ##
@@ -47,6 +53,9 @@ before_script:
   - apt-get install build-essential chrpath libssl-dev libxft-dev -y
   - apt-get install libfreetype6 libfreetype6-dev -y
   - apt-get install libfontconfig1 libfontconfig1-dev -y
+  - pip install virtualenv
+  - virtualenv venv
+  - source venv/bin/activate
   - pip install -U pip
   - pip install -r requirements.txt
 
@@ -57,12 +66,12 @@ app-test:
     - coverage report -m
   coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
 
-app-deploy:
-  stage: deploy
-  script:
-    - ssh ec2-user@{{cookiecutter.host_ip}} "cd /home/ec2-user/{{cookiecutter.project_slug}} && git pull && source venv/bin/activate && PYTHON_INSTALL_LAYOUT="" pip install -r requirements.txt && ./manage.py collectstatic --noinput --ignore *.scss && ./manage.py migrate && venv/bin/uwsgi --reload {{cookiecutter.project_slug}}.pid"
-  dependencies:
-    - app-test
-  only:
-    - tags
-    - web
+# app-deploy:
+#   stage: deploy
+#   script:
+#     - ssh ec2-user@{{cookiecutter.host_ip}} "cd /home/ec2-user/{{cookiecutter.project_slug}} && git pull && source venv/bin/activate && PYTHON_INSTALL_LAYOUT="" pip install -r requirements.txt && ./manage.py collectstatic --noinput --ignore *.scss && ./manage.py migrate && venv/bin/uwsgi --reload {{cookiecutter.project_slug}}.pid"
+#   dependencies:
+#     - app-test
+#   only:
+#     - tags
+#     - web
