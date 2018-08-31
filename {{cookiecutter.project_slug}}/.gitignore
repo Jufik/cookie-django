@@ -4,6 +4,7 @@ __pycache__
 venv
 .vscode
 .sonarlint
+.coverage
 uwsgi.pid
 dump.sql
 db.sqlite
