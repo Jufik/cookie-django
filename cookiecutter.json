@@ -1,5 +1,5 @@
 {
-    "project_slug": "my_project",
+    "project_slug": "my-project",
     "host_ip": "127.0.0.1",
     "dev_domain_name": "{{cookiecutter.project_slug}}.vingtcinq.me",
     "domain_name": "{{cookiecutter.project_slug}}.com",
