@@ -18,11 +18,12 @@ Here are conventions for branching :
 
 ## Running tests :
 
-The `.env.test.json` must be created.
+```
+coverage run manage.py test
+```
 
-```
-CONF=test coverage run manage.py test
-```
+Test are automatically run with gitlab using .env.gitlab.conf and a postgresql database (set on gitlab).
+
 
 ## Deploying :
 
