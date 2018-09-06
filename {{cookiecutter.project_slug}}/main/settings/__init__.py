@@ -20,7 +20,9 @@ from main.settings.user import *
 from main.settings.rest import *
 from main.settings.imagekit import *
 
-if env.get('use_ssl', False):
+USE_SSL = env.get('use_ssl', False)
+
+if USE_SSL:
     from main.settings.ssl import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
