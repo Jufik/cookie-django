@@ -17,6 +17,7 @@ from main.settings.db import *
 from main.settings.raven import *
 from main.settings.mail import *
 from main.settings.user import *
+from main.settings.testing import *
 from main.settings.rest import *
 from main.settings.imagekit import *
 
