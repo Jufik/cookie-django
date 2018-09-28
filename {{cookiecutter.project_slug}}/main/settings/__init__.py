@@ -55,11 +55,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # VingtCinq's apps
     'emailauth',
-    'vqapps.mediamanager',
-    'vqapps.utils',
-    'vqapps.faq',
+    # 'vqapps.mediamanager',
+    # 'vqapps.utils',
+    # 'vqapps.faq',
+
+    # Project's apps
+
     # external apps
     'ordered_model',
     'rest_framework',
@@ -152,6 +156,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/medias/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),

@@ -11,12 +11,12 @@ from imagekit.processors import ResizeToFill, ResizeToFit
 from model_utils.models import TimeStampedModel
 
 
-def normalize_filename(TimeStampedModel):
+def normalize_filename(filename):
     # we had a suffix to ensure file unicity
     suffix = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
     arr = filename.split('.')
     ext = arr[-1]
-    filename = ('-'.join(arr[:-1])).lower()
+    filename = slugify('-'.join(arr[:-1]))
     filename = f"{filename}-{suffix}.{ext}"
     return filename
 
