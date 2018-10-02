@@ -1,0 +1,76 @@
+{% load scaffold %}from django.db.models import Prefetch
+
+from rest_framework import (
+    mixins,
+    views,
+    viewsets,
+    response,
+    permissions,
+    filters,
+    status,
+    generics,
+)
+from rest_framework_filters.backends import DjangoFilterBackend
+from utils import rest_mixins
+from rest_framework.decorators import list_route, detail_route
+
+
+from {{app_label}}.serializers import (
+    {% for model in models %}    {{model|get_model_classname}}Serializer,
+    {% endfor %})
+
+from {{app_label}}.resources import (
+    {% for model in models %}    {{model|get_model_classname}}Resource,
+    {% endfor %})
+
+
+from {{app_label}}.rest_filters import (
+    {% for model in models %}    {{model|get_model_classname}}Filter,
+    {% endfor %})
+
+from {{app_label}}.models import (
+    {% for model in models %}    {{model|get_model_classname}},
+    {% endfor %})
+
+
+{% for model in models %}
+class {{model|get_model_classname}}ViewSet(mixins.ListModelMixin,
+                           mixins.RetrieveModelMixin,
+                           mixins.CreateModelMixin,
+                           mixins.UpdateModelMixin,
+                           mixins.DestroyModelMixin,
+                           viewsets.GenericViewSet):
+    permission_classes = (
+        # permissions.IsAuthenticated,
+    )
+
+    queryset = {{ model|get_model_classname }}.objects.all()
+    serializer_class = {{ model|get_model_classname }}Serializer
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter,)
+    filter_class = {{ model|get_model_classname }}Filter
+    #search_fields = ('name', 'id',)
+
+
+    def get_queryset(self, *args, **kwargs):
+        return super({{ model|get_model_classname }}ViewSet, self).get_queryset(*args, **kwargs)
+
+    def list(self, request, *args, **kwargs):
+        return super({{ model|get_model_classname }}ViewSet, self).list(request, *args, **kwargs)
+
+    def retrieve(self, request, *args, **kwargs):
+        return super({{ model|get_model_classname }}ViewSet, self).retrieve(request, *args, **kwargs)
+
+    def create(self, request, *args, **kwargs):
+        return super({{ model|get_model_classname }}ViewSet, self).create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        return super({{ model|get_model_classname }}ViewSet, self).update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        return super({{ model|get_model_classname }}ViewSet, self).destroy(request, *args, **kwargs)
+
+    @list_route(methods=['post'])
+    def export(self, request):
+        return response.Response({}, status=status.HTTP_201_CREATED)
+
+{% endfor %}
