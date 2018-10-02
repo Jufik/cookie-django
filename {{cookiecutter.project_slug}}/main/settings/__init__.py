@@ -16,6 +16,7 @@ from main.jsonenv import env
 from main.settings.db import *
 from main.settings.raven import *
 from main.settings.mail import *
+from main.settings.ckeditor import *
 from main.settings.user import *
 from main.settings.testing import *
 from main.settings.rest import *
@@ -55,11 +56,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # VingtCinq's apps
     'emailauth',
-    'vqapps.mediamanager',
-    'vqapps.utils',
-    'vqapps.faq',
+    # 'vqapps.mediamanager',
+    # 'vqapps.utils',
+    # 'vqapps.faq',
+
+    # Project's apps
+
     # external apps
     'ordered_model',
     'rest_framework',
@@ -152,6 +157,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/medias/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
