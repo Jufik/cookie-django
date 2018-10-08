@@ -16,6 +16,21 @@ Here are conventions for branching :
 * `feature-[something]` is the branch use to develop the feature [name]
 * there is no `staging` branch, use the dev branch instead
 
+## Init project
+
+Requirements:
+* a remote git repo (usually gitlab)
+* the Git LFS extension : `brew install git-lfs`
+
+Run the following to init the project in GIT :
+
+```
+git init
+git remote add origin https://gitlab.com/e-reflex/{{cookiecutter.project_slug}}.git
+git lfs install # initialize the Git LFS project
+git push --set-upstream origin master
+```
+
 ## Running tests :
 
 ```
@@ -31,7 +46,7 @@ You can deploy using one of the following :
 
 * Create a tag on master branch (use `git push --tags` to push tags)
 * Use gitlab web interface
-* Use fabric `fab deploy` (you must have the `.pem` file enabled) 
+* Use fabric `fab deploy` (you must have the `.pem` file enabled)
 
 ## Assets :
 
