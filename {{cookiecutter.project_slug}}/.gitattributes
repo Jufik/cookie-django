@@ -15,3 +15,7 @@
 *.avi filter=lfs diff=lfs merge=lfs -text
 *.wmv filter=lfs diff=lfs merge=lfs -text
 *.mp4 filter=lfs diff=lfs merge=lfs -text
+
+# sql files
+*.sql filter=lfs diff=lfs merge=lfs -text
+*.sql.gz filter=lfs diff=lfs merge=lfs -text
