@@ -20,7 +20,7 @@ gulp.task('styles', function() {
         remove: false,
       })
     ]))
-    .pipe(sourcemaps.write("./css"))
+    .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest('./css'))
     .pipe(notify("CSS generated"))
     .pipe(livereload());
