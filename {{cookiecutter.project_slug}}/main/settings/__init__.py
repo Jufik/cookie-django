@@ -40,8 +40,6 @@ SECRET_KEY = env.get('django_secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.get('debug')
 
-print(f'DEBUG:{DEBUG}')
-
 ALLOWED_HOSTS = env.get('allowed_hosts', [])
 
 SITE_ID = 1
@@ -59,8 +57,8 @@ INSTALLED_APPS = [
 
     # VingtCinq's apps
     'emailauth',
+    'utils',
     # 'vqapps.mediamanager',
-    # 'vqapps.utils',
     # 'vqapps.faq',
 
     # Project's apps
@@ -92,7 +90,7 @@ if DEBUG:
     INSTALLED_APPS += ['debug_toolbar']
     MIDDLEWARE += [
         'debug_toolbar.middleware.DebugToolbarMiddleware',
-        'vqapps.utils.middleware.NonHtmlDebugToolbarMiddleware'
+        'utils.middleware.NonHtmlDebugToolbarMiddleware'
     ]
     INTERNAL_IPS = ['127.0.0.1']
 else:

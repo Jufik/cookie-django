@@ -1,6 +1,6 @@
 {% load scaffold %}
 from django.urls import reverse
-from vqapps.utils.tests_mixins import BaseAPITestSet
+from utils.tests_mixins import BaseAPITestSet
 
 from {{app_label}}.models import (
     {% for model in models %}    {{model|get_model_classname}},
@@ -49,7 +49,7 @@ class {{model|get_model_classname}}APITestCase(BaseAPITestSet):
         response_obj = {{ model|get_model_classname }}Serializer(response.data)
         self.assertEqual(200, response.status_code)
         self.assertTrue('id' in response.data)
-        
+
         self.assertEqual(response.data.get('name'), 'My test {{ model|get_model_classname }}')
         raise Exception("Should test one field to update")
 
@@ -69,7 +69,7 @@ class {{model|get_model_classname}}APITestCase(BaseAPITestSet):
         response_obj = {{ model|get_model_classname }}Serializer(response.data)
         self.assertEqual(200, response.status_code)
         self.assertTrue('id' in response.data)
-        
+
         self.assertEqual(response.data.get('name'), 'My test {{ model|get_model_classname }}')
         raise Exception("Should test one field to update")
 
