@@ -19,6 +19,8 @@ if __name__ == "__main__":
         logging.disable(logging.CRITICAL)
         settings.DEBUG = False
         settings.TEMPLATE_DEBUG = False
+        settings.DEFAULT_FILE_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+        settings.STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
         settings.PASSWORD_HASHERS = [
             'django.contrib.auth.hashers.MD5PasswordHasher',
         ]
