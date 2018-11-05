@@ -14,7 +14,6 @@ import os
 
 from main.jsonenv import env
 from main.settings.db import *
-from main.settings.raven import *
 from main.settings.mail import *
 from main.settings.ckeditor import *
 from main.settings.user import *
@@ -94,7 +93,7 @@ if DEBUG:
     ]
     INTERNAL_IPS = ['127.0.0.1']
 else:
-    INSTALLED_APPS += ['raven.contrib.django.raven_compat']
+    from main.settings.sentry import *
 
 ROOT_URLCONF = 'main.urls'
 
