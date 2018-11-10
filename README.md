@@ -1,0 +1,1 @@
+Usage: cookiecutter https://gitlab.com/e-reflex/vq-django.git
