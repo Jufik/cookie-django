@@ -30,11 +30,11 @@ def drop_local_db():
 def import_dump():
     print('Select the dump you would like to import :')
     dumps = []
-    for file_ in os.listdir("/dumps"):
+    for file_ in os.listdir("./dumps"):
         if file_.endswith(".sql"):
             dumps.append(os.path.join("/dumps", file_))
     for counter, db in enumerate(dumps):
-        print("\t{counter}) {db}")
+        print(f"\t{counter}) {db}")
     selected_dump_index = prompt("Your choice: ", validate=int)
     try:
         selected_dump = dumps[selected_dump_index]
