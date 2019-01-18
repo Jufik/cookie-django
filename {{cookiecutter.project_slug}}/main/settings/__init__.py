@@ -57,8 +57,6 @@ INSTALLED_APPS = [
     # VingtCinq's apps
     'emailauth',
     'utils',
-    # 'vqapps.mediamanager',
-    # 'vqapps.faq',
 
     # Project's apps
 
