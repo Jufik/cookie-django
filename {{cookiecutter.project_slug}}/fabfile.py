@@ -8,6 +8,7 @@ from main.jsonenv import env as creds_env
 
 
 env.user = 'ec2-user'
+env.use_ssh_config = True
 env.hosts = ['{{cookiecutter.host_ip}}']
 
 def dump_db():
