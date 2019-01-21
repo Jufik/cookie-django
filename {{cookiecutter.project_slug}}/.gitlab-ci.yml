@@ -53,8 +53,7 @@ before_script:
   - apt-get install build-essential chrpath libssl-dev libxft-dev -y
   - apt-get install libfreetype6 libfreetype6-dev -y
   - apt-get install libfontconfig1 libfontconfig1-dev -y
-  - pip install virtualenv
-  - virtualenv venv
+  - python3 -m venv venv
   - source venv/bin/activate
   - pip install -U pip
   - pip install -r requirements.txt
