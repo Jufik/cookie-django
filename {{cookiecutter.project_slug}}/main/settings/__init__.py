@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # GeoDjango
+    # 'django.contrib.gis',
 
     # VingtCinq's apps
     'emailauth',
@@ -92,6 +94,9 @@ if DEBUG:
     INTERNAL_IPS = ['127.0.0.1']
 else:
     from main.settings.sentry import *
+    # Only for GDAL and GEOS support
+    # GEOS_LIBRARY_PATH = '/usr/local/lib/libgeos_c.so'
+    # GDAL_LIBRARY_PATH = '/usr/local/lib/libgdal.so'
 
 ROOT_URLCONF = 'main.urls'
 

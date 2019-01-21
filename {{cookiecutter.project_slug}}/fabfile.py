@@ -58,7 +58,7 @@ def deploy():
 
 def migrate():
     with cd('/home/ec2-user/{{cookiecutter.project_slug}}'):
-        run("source venv/bin/activate && PROD=1 ./manage.py migrate")
+        run("source venv/bin/activate && ./manage.py migrate")
 
 
 def pull():
