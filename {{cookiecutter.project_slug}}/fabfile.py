@@ -92,7 +92,7 @@ def start():
     with cd('/home/ec2-user'):
         run("git clone https://gitlab.com/e-reflex/{{cookiecutter.project_slug}}.git")
     with cd('/home/ec2-user/{{cookiecutter.project_slug}}'):
-        run("virtualenv venv -p python3")
+        run("python3 -m venv venv")
         run("source venv/bin/activate && PYTHON_INSTALL_LAYOUT="" pip install -U pip")
         run("source venv/bin/activate && PYTHON_INSTALL_LAYOUT="" pip install uwsgi")
         run("source venv/bin/activate && PYTHON_INSTALL_LAYOUT="" pip install -r requirements.txt")
