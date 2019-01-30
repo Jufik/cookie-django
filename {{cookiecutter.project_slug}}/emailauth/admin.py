@@ -88,9 +88,9 @@ class UserAdmin(admin.ModelAdmin):
     @csrf_protect_m
     def add_view(self, request, form_url='', extra_context=None):
         with transaction.atomic(using=router.db_for_write(self.model)):
-            return self._add_view(request, form_url, extra_context)   
-    
-    def add_view(self, request, form_url='', extra_context=None):
+            return self._add_view(request, form_url, extra_context)
+
+    def _add_view(self, request, form_url='', extra_context=None):
         # It's an error for a user to have add permission but NOT change
         # permission for users. If we allowed such users to add users, they
         # could create superusers, which would mean they would essentially have
