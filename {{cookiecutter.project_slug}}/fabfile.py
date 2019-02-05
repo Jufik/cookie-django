@@ -13,12 +13,12 @@ env.hosts = ['{{cookiecutter.host_ip}}']
 
 def dump_db():
     if confirm("This will dump database %s (%s), Continue ?" % (creds_env.get('db_name', ''), creds_env.get('db_host', '')), default=False):
-        local('PGPASSWORD=%s pg_dump --dbname=%s --host=%s --username=%s > dumps/db-remote-%s.sql' % (
+        local('PGPASSWORD=%s pg_dump --dbname=%s --host=%s --username=%s --no-owner --no-acl > dumps/db-remote-%s.sql' % (
             creds_env.get('db_password', ''),
             creds_env.get('db_name', ''),
             creds_env.get('db_host', ''),
             creds_env.get('db_user', ''),
-            datetime.datetime.now().replace(microsecond=0).isoformat()
+            datetime.datetime.now().replace(microsecond=0).isoformat().replace(':', '-')
         ))
 
 def create_local_db():
