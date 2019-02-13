@@ -11,7 +11,7 @@ env.user = 'ec2-user'
 env.use_ssh_config = True
 env.hosts = ['{{cookiecutter.host_ip}}']
 
-def dump_db():
+def create_dump():
     if confirm("This will dump database %s (%s), Continue ?" % (creds_env.get('db_name', ''), creds_env.get('db_host', '')), default=False):
         local('PGPASSWORD=%s pg_dump --dbname=%s --host=%s --username=%s --no-owner --no-acl > dumps/db-remote-%s.sql' % (
             creds_env.get('db_password', ''),
@@ -33,7 +33,7 @@ def import_dump():
     dumps = []
     for file_ in os.listdir("./dumps"):
         if file_.endswith(".sql"):
-            dumps.append(os.path.join("/dumps", file_))
+            dumps.append(os.path.join("./dumps", file_))
     for counter, db in enumerate(dumps):
         print(f"\t{counter}) {db}")
     selected_dump_index = prompt("Your choice: ", validate=int)
