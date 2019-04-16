@@ -54,17 +54,10 @@ def deploy():
         run("git pull")
         run("source venv/bin/activate && PYTHON_INSTALL_LAYOUT="" pip install -r requirements.txt")
         run("source venv/bin/activate && ./manage.py collectstatic --noinput --ignore *.scss")
+        run("source venv/bin/activate && ./manage.py showmigrations")
+        if confirm("Run migrate ?"):
+            run("source venv/bin/activate && ./manage.py migrate")
         run("venv/bin/uwsgi --reload {{cookiecutter.project_slug}}.pid")
-
-
-def migrate():
-    with cd('/home/ec2-user/{{cookiecutter.project_slug}}'):
-        run("source venv/bin/activate && ./manage.py migrate")
-
-
-def pull():
-    with cd('/home/ec2-user/{{cookiecutter.project_slug}}'):
-        run("git pull")
 
 
 def reload():
@@ -72,10 +65,6 @@ def reload():
         run("git pull")
         run("venv/bin/uwsgi --reload {{cookiecutter.project_slug}}.pid")
 
-def nginx():
-    with cd('/home/ec2-user/{{cookiecutter.project_slug}}'):
-        run("sudo cp conf/{{cookiecutter.project_slug}}.conf /etc/nginx/conf.d/" % project_name)
-        run("sudo service nginx restart")
 
 def commit(message):
     local("git add --all")
@@ -86,17 +75,3 @@ def commit(message):
 def cdeploy(message):
     commit(message)
     deploy()
-
-
-def start():
-    with cd('/home/ec2-user'):
-        run("git clone https://gitlab.com/e-reflex/{{cookiecutter.project_slug}}.git")
-    with cd('/home/ec2-user/{{cookiecutter.project_slug}}'):
-        run("python3 -m venv venv")
-        run("source venv/bin/activate && PYTHON_INSTALL_LAYOUT="" pip install -U pip")
-        run("source venv/bin/activate && PYTHON_INSTALL_LAYOUT="" pip install uwsgi")
-        run("source venv/bin/activate && PYTHON_INSTALL_LAYOUT="" pip install -r requirements.txt")
-        run("source venv/bin/activate && ./manage.py collectstatic --noinput --ignore *.scss")
-        run("venv/bin/uwsgi {{cookiecutter.project_slug}}.ini")
-        run("sudo cp {{cookiecutter.project_slug}}.conf /etc/nginx/conf.d/")
-        run("sudo service nginx restart")
