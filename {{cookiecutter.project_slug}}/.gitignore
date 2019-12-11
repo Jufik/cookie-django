@@ -15,4 +15,3 @@ node_modules
 .env.json
 .env.*.json
 !.env.sample.json
-!.env.gitlab.json

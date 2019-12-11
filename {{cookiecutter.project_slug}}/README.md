@@ -33,11 +33,7 @@ coverage run manage.py test
 
 ## Deploying :
 
-You can deploy using one of the following :
-
-* Create a tag on master branch (use `git push --tags` to push tags)
-* Use gitlab web interface
-* Use fabric `fab deploy` (you must have the `.pem` file enabled)
+Deploy to dev or prod server using `one-cli` as explained here : https://x.vingtcinq.me/parametrer-et-utiliser-one-cli/
 
 ## Assets :
 

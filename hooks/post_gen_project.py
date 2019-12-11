@@ -15,12 +15,7 @@ def main():
     # create initial .env.json file
     with open('.env.json', 'w') as env_file:
         json.dump(data, env_file, indent=4, sort_keys=True)
-    # set .env.json file for CI
-    with open(".env.gitlab.json", "w") as gitlab_env_file:
-        data['django_secret_key'] = generate_secret_key()
-        data['db_host'] = 'postgres'
-        data['db_user'] = data['db_name']
-        json.dump(data, gitlab_env_file, indent=4, sort_keys=True)
+
 
 if __name__ == "__main__":
     main()
