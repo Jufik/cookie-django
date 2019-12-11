@@ -9,7 +9,7 @@ from rest_auth.views import (
     PasswordResetConfirmView
 )
 
-from emailauth.api_views import UserViewSet
+from users.api_views import UserViewSet
 
 
 router = routers.DefaultRouter(trailing_slash=False)

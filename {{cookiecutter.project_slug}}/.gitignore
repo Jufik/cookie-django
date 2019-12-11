@@ -11,6 +11,7 @@ db.sqlite
 node_modules
 /dumps/
 /static/
+/medias/
 .env.json
 .env.*.json
 !.env.sample.json

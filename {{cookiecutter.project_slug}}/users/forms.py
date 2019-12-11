@@ -5,7 +5,7 @@ from django.contrib.auth import password_validation
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from emailauth.models import User
+from users.models import User
 
 
 class UserCreationForm(forms.ModelForm):

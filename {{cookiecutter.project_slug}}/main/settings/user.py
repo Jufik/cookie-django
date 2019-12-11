@@ -1,1 +1,1 @@
-AUTH_USER_MODEL = 'emailauth.User'
+AUTH_USER_MODEL = 'users.User'

@@ -9,25 +9,19 @@
 
 ## Branch convention
 
-Here are conventions for branching :
-
-* `master` is the branch used in production
-* `dev` is the branch used for development (before the site is live)
-* `feature-[something]` is the branch use to develop the feature [name]
-* there is no `staging` branch, use the dev branch instead
+Please follow the conventions as defined here : https://x.vingtcinq.me/travailler-equipe-git/
 
 ## Init project
 
 Requirements:
 * a remote git repo (usually gitlab)
-* the Git LFS extension : `brew install git-lfs`
 
 Run the following to init the project in GIT :
 
 ```
 git init
 git remote add origin https://gitlab.com/e-reflex/{{cookiecutter.project_slug}}.git
-git lfs install # initialize the Git LFS project
+git add --all
 git push --set-upstream origin master
 ```
 
@@ -36,9 +30,6 @@ git push --set-upstream origin master
 ```
 coverage run manage.py test
 ```
-
-Test are automatically run with gitlab using .env.gitlab.conf and a postgresql database (set on gitlab).
-
 
 ## Deploying :
 

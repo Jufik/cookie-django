@@ -11,6 +11,5 @@ class Command(TemplateCommand):
     def handle(self, **options):
         app_name = options.pop('name')
         target = options.pop('directory')
-        options['template']= options.pop('template') or './utils/app_template'
-        print(options)
+        options['template'] = options.pop('template', './utils/app_template')
         super().handle('app', app_name, target, **options)

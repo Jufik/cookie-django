@@ -14,10 +14,10 @@ import os
 
 from main.jsonenv import env
 from main.settings.db import *
+from main.settings.logging import *
 from main.settings.mail import *
 from main.settings.ckeditor import *
 from main.settings.user import *
-from main.settings.testing import *
 from main.settings.rest import *
 from main.settings.imagekit import *
 
@@ -57,15 +57,14 @@ INSTALLED_APPS = [
     # 'django.contrib.gis',
 
     # VingtCinq's apps
-    'emailauth',
+    'users',
     'utils',
 
     # Project's apps
 
     # external apps
-    'ordered_model',
     'rest_framework',
-    'rest_framework.authtoken',
+    # 'rest_framework.authtoken',
     'django_filters',
     'rest_auth',
     'corsheaders',
@@ -87,8 +86,8 @@ MIDDLEWARE = [
 
 if DEBUG:
     INSTALLED_APPS += ['debug_toolbar']
+    MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
     MIDDLEWARE += [
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
         'utils.middleware.NonHtmlDebugToolbarMiddleware'
     ]
     INTERNAL_IPS = ['127.0.0.1']

@@ -15,7 +15,7 @@ class UserViewSet(mixins.ListModelMixin,
                   mixins.DestroyModelMixin,
                   viewsets.GenericViewSet):
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UserSerializer
     # filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
