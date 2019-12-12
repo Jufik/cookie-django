@@ -13,7 +13,7 @@ from users.api_views import UserViewSet
 
 
 router = routers.DefaultRouter(trailing_slash=False)
-router.register(r'users', UserViewSet, base_name="users")
+router.register(r'users', UserViewSet, basename="users")
 
 rest_auth_urlpatters = [
     # URLs that do not require a session or valid token

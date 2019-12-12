@@ -1,11 +1,19 @@
-from __future__ import unicode_literals
-
 from django import forms
-from django.contrib.auth import password_validation
+from django.contrib.auth import (
+    get_user_model, password_validation,
+)
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMultiAlternatives
+from django.template import loader
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from django.utils.translation import ugettext, ugettext_lazy as _
 
 from users.models import User
+
+UserModel = get_user_model()
 
 
 class UserCreationForm(forms.ModelForm):
@@ -14,16 +22,17 @@ class UserCreationForm(forms.ModelForm):
     password.
     """
     error_messages = {
-        'password_mismatch': _("The two password fields didn't match."),
+        'password_mismatch': _('The two password fields didn’t match.'),
     }
     password1 = forms.CharField(
         label=_("Password"),
         strip=False,
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
+        help_text=password_validation.password_validators_help_text_html(),
     )
     password2 = forms.CharField(
         label=_("Password confirmation"),
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
         strip=False,
         help_text=_("Enter the same password as before, for verification."),
     )
@@ -33,9 +42,9 @@ class UserCreationForm(forms.ModelForm):
         fields = ("email",)
 
     def __init__(self, *args, **kwargs):
-        super(UserCreationForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if self._meta.model.USERNAME_FIELD in self.fields:
-            self.fields[self._meta.model.USERNAME_FIELD].widget.attrs.update({'autofocus': ''})
+            self.fields[self._meta.model.USERNAME_FIELD].widget.attrs['autofocus'] = True
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -45,12 +54,21 @@ class UserCreationForm(forms.ModelForm):
                 self.error_messages['password_mismatch'],
                 code='password_mismatch',
             )
-        self.instance.email = self.cleaned_data.get('email')
-        password_validation.validate_password(self.cleaned_data.get('password2'), self.instance)
         return password2
 
+    def _post_clean(self):
+        super()._post_clean()
+        # Validate the password after self.instance is updated with form data
+        # by super().
+        password = self.cleaned_data.get('password2')
+        if password:
+            try:
+                password_validation.validate_password(password, self.instance)
+            except forms.ValidationError as error:
+                self.add_error('password2', error)
+
     def save(self, commit=True):
-        user = super(UserCreationForm, self).save(commit=False)
+        user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
@@ -61,9 +79,9 @@ class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField(
         label=_("Password"),
         help_text=_(
-            "Raw passwords are not stored, so there is no way to see this "
-            "user's password, but you can change the password using "
-            "<a href=\"../password/\">this form</a>."
+            'Raw passwords are not stored, so there is no way to see this '
+            'user’s password, but you can change the password using '
+            '<a href="{}">this form</a>.'
         ),
     )
 
@@ -72,13 +90,16 @@ class UserChangeForm(forms.ModelForm):
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
-        super(UserChangeForm, self).__init__(*args, **kwargs)
-        f = self.fields.get('user_permissions')
-        if f is not None:
-            f.queryset = f.queryset.select_related('content_type')
+        super().__init__(*args, **kwargs)
+        password = self.fields.get('password')
+        if password:
+            password.help_text = password.help_text.format('../password/')
+        user_permissions = self.fields.get('user_permissions')
+        if user_permissions:
+            user_permissions.queryset = user_permissions.queryset.select_related('content_type')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
-        return self.initial["password"]
+        return self.initial.get('password')
