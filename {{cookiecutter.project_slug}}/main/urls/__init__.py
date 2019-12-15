@@ -20,6 +20,8 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', include('main.urls.admin')),
     path('api/', include('main.urls.api')),
+    # enable DRF browsable api
+    path('api-auth/', include('rest_framework.urls')),
 ]
 
 
