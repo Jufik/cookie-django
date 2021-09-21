@@ -45,7 +45,6 @@ SITE_ID = 1
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -56,21 +55,23 @@ INSTALLED_APPS = [
     # GeoDjango
     # 'django.contrib.gis',
 
-    # VingtCinq's apps
     'users',
     'utils',
 
     # Project's apps
+    "api.apps.ApiConfig",
+    "authentification.apps.AuthConfig",
 
     # external apps
     'rest_framework',
-    # 'rest_framework.authtoken',
-    'django_filters',
-    'rest_auth',
-    'corsheaders',
-    'imagekit'
+    "rest_framework.authtoken",
+    "django_filters",
+    "rest_auth",
+    "corsheaders",
+    "imagekit",
+    "django_extensions",
+    "factory_generator",
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

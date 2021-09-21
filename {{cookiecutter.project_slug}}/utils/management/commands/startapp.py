@@ -1,5 +1,6 @@
 from django.core.management.templates import TemplateCommand
-
+from django.conf import settings
+import os
 
 class Command(TemplateCommand):
     help = (
@@ -12,4 +13,6 @@ class Command(TemplateCommand):
         app_name = options.pop('name')
         target = options.pop('directory')
         options['template'] = options.get('template') or './utils/app_template'
+        with open(os.path.join(settings.BASE_DIR,"conftest.py"),"a") as conftest:
+            conftest.write(f"from {app_name}.tests.conftest import * \r\n")
         super().handle('app', app_name, target, **options)

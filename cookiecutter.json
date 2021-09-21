@@ -1,10 +1,7 @@
 {
-    "project_slug": "my-project",
-    "dev_domain_name": "{{cookiecutter.project_slug}}.vingtcinq.me",
-    "domain_name": "{{cookiecutter.project_slug}}.com",
-    "uwsgi_port": 8000,
-    "_copy_without_render": [
-        "*.html",
-        "*.js"
-    ]
+  "project_slug": "my-project",
+  "dev_domain_name": "{{cookiecutter.project_slug}}.mefa.tech",
+  "domain_name": "{{cookiecutter.project_slug}}.com",
+  "uwsgi_port": 8000,
+  "_copy_without_render": ["*.html", "*.js", "**/app_template/*"]
 }

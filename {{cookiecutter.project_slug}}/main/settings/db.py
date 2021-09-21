@@ -9,6 +9,6 @@ DATABASES = {
         'USER': env.get('db_user', ''),
         'HOST': env.get('db_host', ''),
         'PASSWORD': env.get('db_password', ''),
-        'PORT': '5432',
+        'PORT':  env.get('db_port', '5432'),
     }
 }

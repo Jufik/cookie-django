@@ -4,23 +4,25 @@
 
 # {{cookiecutter.project_slug}}
 
-* dev domain : {{cookiecutter.dev_domain_name}}
-* prod domain : {{cookiecutter.domain_name}}
+-   dev domain : {{cookiecutter.dev_domain_name}}
+-   prod domain : {{cookiecutter.domain_name}}
 
 ## Branch convention
 
-Please follow the conventions as defined here : https://x.vingtcinq.me/travailler-equipe-git/
+GitFlow
+https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
 
 ## Init project
 
 Requirements:
-* a remote git repo (usually gitlab)
+
+-   a remote git repo (usually gitlab)
 
 Run the following to init the project in GIT :
 
 ```
 git init
-git remote add origin https://gitlab.com/e-reflex/{{cookiecutter.project_slug}}.git
+git remote add origin https://gitlab.com/mefa/{{cookiecutter.project_slug}}.git
 git add --all
 git push --set-upstream origin master
 ```
@@ -31,12 +33,7 @@ git push --set-upstream origin master
 coverage run manage.py test
 ```
 
-## Deploying :
-
-Deploy to dev or prod server using `one-cli` as explained here : https://x.vingtcinq.me/parametrer-et-utiliser-one-cli/
-
 ## Assets :
 
-* Install assets with `yarn` : `cd assets && yarn install`
-* Launch gulp : `gulp`
-
+-   Install assets with `yarn` : `cd assets && yarn install`
+-   Launch gulp : `gulp`

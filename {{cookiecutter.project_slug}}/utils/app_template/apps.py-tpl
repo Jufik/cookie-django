@@ -1,7 +1,7 @@
-{% raw %}
+
 from django.apps import AppConfig
+from django.utils.translation import gettext as _
 
 
 class {{ camel_case_app_name }}Config(AppConfig):
     name = '{{ app_name }}'
-{% endraw %}

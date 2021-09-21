@@ -7,6 +7,15 @@ django-imagekit
 django-model-utils
 django-rest-auth
 django-storages
+django-extensions
 djangorestframework
 Pillow
 psycopg2-binary
+pytest
+pytest-asyncio
+pytest-cov
+pytest-django
+pytest-factoryboy
+pytest-mock
+factory-boy
+django-factory-generator
